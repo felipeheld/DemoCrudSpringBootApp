@@ -8,6 +8,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -24,13 +25,13 @@ public class MongoConfig {
     private Environment env;
    
     @Bean
-    public MongoClient mongo() {        
+    public MongoClient mongo(@Value("${mongo-cluster-url}") String clusterUrl) {        
         var database = Arrays.asList(env.getActiveProfiles()).contains("Integration")
           ? "test" : "ensino";
 
         log.info("DATABASE selected={}", database);
   
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://felipeheld:QoAbXjPAOsITWUwW@cluster0.bzkk4.mongodb.net/" + database + "?retryWrites=true&w=majority");
+        ConnectionString connectionString = new ConnectionString(clusterUrl + database + "?retryWrites=true&w=majority");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
           .applyConnectionString(connectionString)
           .build();
