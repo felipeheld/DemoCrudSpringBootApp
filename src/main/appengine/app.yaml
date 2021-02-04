@@ -1,0 +1,10 @@
+runtime: java11
+runtime_config:
+  jdk: openjdk11
+env_variables:
+  SPRING_PROFILES_ACTIVE: "gcp"
+handlers:
+- url: /.*
+  script: echo "app started"
+manual_scaling: 
+  instances: 1

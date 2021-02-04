@@ -49,7 +49,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             .map(error -> error.getDefaultMessage())
             .collect(Collectors.toList());
         
-        var error = ApiError.builder().message(String.join(",", errors)).timestamp(LocalDateTime.now()).build();
+        var error = ApiError.builder().message(String.join(" ", errors)).timestamp(LocalDateTime.now()).build();
 
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }

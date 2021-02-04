@@ -19,8 +19,8 @@ public class NotaService {
 
     private final NotaRepository notaRepository;
 
-    public Iterable<Nota> getNotas(String estudante, String disciplina, Boolean aprovado) throws RepositoryException {        
-        return notaRepository.findAll(estudante, disciplina, aprovado);
+    public Iterable<Nota> getNotas(String estudante, String disciplina, String nota, Boolean aprovado) throws RepositoryException {        
+        return notaRepository.findAll(estudante, disciplina, nota, aprovado);
     }
 
     public Nota getNota(String id) throws RepositoryException {

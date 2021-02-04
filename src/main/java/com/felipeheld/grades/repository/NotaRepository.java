@@ -26,7 +26,7 @@ public class NotaRepository {
     private final NotaBaseRepository notaBaseRepository;
     private final MongoTemplate mongo;
 
-    public Iterable<Nota> findAll(String estudante, String disciplina, Boolean aprovado) throws RepositoryException {
+    public Iterable<Nota> findAll(String estudante, String disciplina, String nota, Boolean aprovado) throws RepositoryException {
         QNota query = new QNota("nota");
         BooleanBuilder bool = new BooleanBuilder();        
 
@@ -34,6 +34,8 @@ public class NotaRepository {
             bool.and(query.estudante.eq(estudante));
         if (disciplina != null)
             bool.and(query.disciplina.eq(disciplina));
+        if (nota != null)
+            bool.and(query.nota.eq(nota));
         if (aprovado != null)
             bool.and(query.aprovado.eq(aprovado));
 

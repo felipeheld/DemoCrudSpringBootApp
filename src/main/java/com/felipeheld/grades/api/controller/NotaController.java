@@ -37,11 +37,12 @@ public class NotaController {
     public ResponseEntity<Iterable<Nota>> get(
             @RequestParam(name = "estudante", required = false) String estudante,
             @RequestParam(name = "disciplina", required = false) String disciplina,
+            @RequestParam(name = "nota", required = false) String nota,
             @RequestParam(name = "aprovado", required = false) Boolean aprovado) throws RepositoryException {
         log.info("Received request to getNotas with parameters:\nestudante={}\ndisciplina={}\naprovado={}", 
             estudante, disciplina, aprovado);
                     
-        var notas = notaService.getNotas(estudante, disciplina, aprovado);
+        var notas = notaService.getNotas(estudante, disciplina, nota, aprovado);
 
         return ResponseEntity.ok(notas);
     }
@@ -52,7 +53,9 @@ public class NotaController {
         
         var nota = notaService.getNota(id);
 
-        return ResponseEntity.ok(nota);
+        if (nota != null)
+            return ResponseEntity.ok(nota);
+        return ResponseEntity.notFound().build(); 
     }
 
     @PostMapping
